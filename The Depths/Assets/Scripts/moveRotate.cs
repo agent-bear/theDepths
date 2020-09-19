@@ -13,6 +13,7 @@ public class moveRotate : MonoBehaviour
 
     public float moveSpeed = 12f;
 
+
     
     // Start is called before the first frame update
     void Start()
@@ -29,10 +30,11 @@ public class moveRotate : MonoBehaviour
         meshTransform.transform.localRotation = meshRotation;
 
         //gets the input from the keyboard
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
+        float forward = Input.GetAxis("Vertical");
+        float sideways = Input.GetAxis("Horizontal");
+        float up = Input.GetAxis("Jump");
 
-        Vector3 meshDir =  camTransform.transform.right * x + camTransform.transform.forward * y;
+        Vector3 meshDir = camTransform.transform.right * sideways + camTransform.transform.forward * forward + camTransform.transform.up * up;
 
         controller.Move(meshDir * moveSpeed * Time.deltaTime);
         

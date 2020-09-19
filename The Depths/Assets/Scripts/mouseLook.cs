@@ -8,6 +8,7 @@ public class mouseLook : MonoBehaviour
     
     float xRotation = 0f;
     float yRotation = 0f;
+
     
     // Start is called before the first frame update
     void Start()
@@ -21,9 +22,16 @@ public class mouseLook : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
 
+        if(transform.up.y > 0){
+            yRotation += mouseX;
+        } else{
+            yRotation -= mouseX;
+        }
+
         xRotation -= mouseY;
-        yRotation += mouseX;
 
         transform.localRotation = Quaternion.Euler(xRotation * mouseSensitivity, yRotation * mouseSensitivity, 0);
+
+        print(transform.up.y);
     }
 }
