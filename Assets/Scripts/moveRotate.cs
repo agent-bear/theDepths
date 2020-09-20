@@ -6,14 +6,13 @@ public class moveRotate : MonoBehaviour
 {
     public Transform camTransform;
     public Transform meshTransform;
+    public Transform waterLevel;
 
     public CharacterController controller;
 
     public float turnSpeed = 1f;
 
     public float moveSpeed = 12f;
-
-
     
     // Start is called before the first frame update
     void Start()
@@ -37,8 +36,13 @@ public class moveRotate : MonoBehaviour
         Vector3 meshDir = camTransform.transform.right * sideways + camTransform.transform.forward * forward + camTransform.transform.up * up;
 
         controller.Move(meshDir * moveSpeed * Time.deltaTime);
+
+        //limits the player movement to the water level.
+        if(transform.position.y - 0.2f > waterLevel.transform.position.y){
+            Vector3 newPosition = new Vector3(transform.position.x, waterLevel.transform.position.y + 0.2f, transform.position.z);
+            transform.position = newPosition;
+        }
         
-    
     
     }
 }

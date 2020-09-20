@@ -32,6 +32,6 @@ public class mouseLook : MonoBehaviour
 
         transform.localRotation = Quaternion.Euler(xRotation * mouseSensitivity, yRotation * mouseSensitivity, 0);
 
-        print(transform.up.y);
+
     }
 }
