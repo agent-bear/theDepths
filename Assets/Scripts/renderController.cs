@@ -10,6 +10,8 @@ public class renderController : MonoBehaviour
     float fogAmount;
 
     public Transform mainCam;
+
+    public ParticleSystem waterParticles;
     public Transform waterlevel;
     public Light sunLight;
 
@@ -47,8 +49,10 @@ public class renderController : MonoBehaviour
         RenderSettings.fog = true;
         RenderSettings.fogColor = Color.Lerp(shallowWaterColor, deepWaterColor, correctionVal);
         RenderSettings.fogDensity = Mathf.Lerp(minFogDensity, maxFogDensity, correctionVal);
-        sunLight.intensity = Mathf.Lerp(1f, 0.01f, correctionVal);
+        sunLight.intensity = Mathf.Lerp(1f, 0f, correctionVal);
         
+        waterParticles.Play();
+        waterParticles.Emit(100);
     }
     void aboveWater()
     {
@@ -56,6 +60,9 @@ public class renderController : MonoBehaviour
         RenderSettings.fogColor = aboveWaterColor;
         RenderSettings.fogDensity = 0.005f;
         sunLight.intensity = 1f;
+
+        waterParticles.Pause();
+        waterParticles.Clear();
     }
 
 }

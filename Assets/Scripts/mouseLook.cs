@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class mouseLook : MonoBehaviour
 {
+
+    public Transform Camera;
     public float mouseSensitivity = 5f;
     
     float xRotation = 0f;
@@ -21,6 +23,7 @@ public class mouseLook : MonoBehaviour
     {
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
 
         if(transform.up.y > 0){
             yRotation += mouseX;
@@ -31,6 +34,16 @@ public class mouseLook : MonoBehaviour
         xRotation -= mouseY;
 
         transform.localRotation = Quaternion.Euler(xRotation * mouseSensitivity, yRotation * mouseSensitivity, 0);
+
+        if(Camera.transform.localPosition.z < -10){
+            Camera.transform.localPosition = new Vector3(0, 0, -10);
+        }
+
+        if(Camera.transform.localPosition.z > 0){
+            Camera.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        
+        Camera.transform.localPosition += new Vector3(0, 0, scroll * 10);
 
 
     }
